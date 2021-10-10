@@ -1,106 +1,103 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# (c) @AlbertEinsteinTG
+import os
+import logging
+from pyrogram import Client, filters
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from info import START_MSG, CHANNELS, ADMINS, INVITE_MSG
+from utils import Media
 
-from pyrogram import filters, Client
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
-from bot import Translation, LOGGER # pylint: disable=import-error
-from bot.database import Database # pylint: disable=import-error
+logger = logging.getLogger(__name__)
 
-db = Database()
 
-@Client.on_message(filters.command(["start"]) & filters.private, group=1)
-async def start(bot, update):
-    
+@Client.on_message(filters.command('start'))
+async def start(bot, message):
+    """Start command handler"""
+    if len(message.command) > 1 and message.command[1] == 'subscribe':
+        await message.reply(INVITE_MSG)
+    else:
+        buttons = [[
+            InlineKeyboardButton('Search Here', switch_inline_query_current_chat=''),
+            InlineKeyboardButton('Go Inline', switch_inline_query=''),
+        ]]
+        reply_markup = InlineKeyboardMarkup(buttons)
+        await message.reply(START_MSG, reply_markup=reply_markup)
+
+
+@Client.on_message(filters.command('channel') & filters.user(ADMINS))
+async def channel_info(bot, message):
+    """Send basic information of channel"""
+    if isinstance(CHANNELS, (int, str)):
+        channels = [CHANNELS]
+    elif isinstance(CHANNELS, list):
+        channels = CHANNELS
+    else:
+        raise ValueError("Unexpected type of CHANNELS")
+
+    text = '📑 **Indexed channels/groups**\n'
+    for channel in channels:
+        chat = await bot.get_chat(channel)
+        if chat.username:
+            text += '\n@' + chat.username
+        else:
+            text += '\n' + chat.title or chat.first_name
+
+    text += f'\n\n**Total:** {len(CHANNELS)}'
+
+    if len(text) < 4096:
+        await message.reply(text)
+    else:
+        file = 'Indexed channels.txt'
+        with open(file, 'w') as f:
+            f.write(text)
+        await message.reply_document(file)
+        os.remove(file)
+
+
+@Client.on_message(filters.command('total') & filters.user(ADMINS))
+async def total(bot, message):
+    """Show total files in database"""
+    msg = await message.reply("Processing...⏳", quote=True)
     try:
-        file_uid = update.command[1]
-    except IndexError:
-        file_uid = False
-    
-    if file_uid:
-        file_id, file_name, file_caption, file_type = await db.get_file(file_uid)
-        
-        if (file_id or file_type) == None:
-            return
-        
-        caption = file_caption if file_caption != ("" or None) else ("<code>" + file_name + "</code>")
-        try:
-            await update.reply_cached_media(
-                file_id,
-                quote=True,
-                caption = caption,
-                parse_mode="html",
-                reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton
-                                (
-                                    'Developers', url="https://t.me/CrazyBotsz"
-                                )
-                        ]
-                    ]
-                )
-            )
-        except Exception as e:
-            await update.reply_text(f"<b>Error:</b>\n<code>{e}</code>", True, parse_mode="html")
-            LOGGER(__name__).error(e)
+        total = await Media.count_documents()
+        await msg.edit(f'📁 Saved files: {total}')
+    except Exception as e:
+        logger.exception('Failed to check total files')
+        await msg.edit(f'Error: {e}')
+
+
+@Client.on_message(filters.command('logger') & filters.user(ADMINS))
+async def log_file(bot, message):
+    """Send log file"""
+    try:
+        await message.reply_document('TelegramBot.log')
+    except Exception as e:
+        await message.reply(str(e))
+
+
+@Client.on_message(filters.command('delete') & filters.user(ADMINS))
+async def delete(bot, message):
+    """Delete file from database"""
+    reply = message.reply_to_message
+    if reply and reply.media:
+        msg = await message.reply("Processing...⏳", quote=True)
+    else:
+        await message.reply('Reply to file with /delete which you want to delete', quote=True)
         return
 
-    buttons = [[
-        InlineKeyboardButton('Developers', url='https://t.me/CrazyBotsz'),
-        InlineKeyboardButton('Source Code 🧾', url ='https://github.com/CrazyBotsz/Adv-Auto-Filter-Bot-V2')
-    ],[
-        InlineKeyboardButton('Support 🛠', url='https://t.me/CrazyBotszGrp')
-    ],[
-        InlineKeyboardButton('Help ⚙', callback_data="help")
-    ]]
-    
-    reply_markup = InlineKeyboardMarkup(buttons)
-    
-    await bot.send_message(
-        chat_id=update.chat.id,
-        text=Translation.START_TEXT.format(
-                update.from_user.first_name),
-        reply_markup=reply_markup,
-        parse_mode="html",
-        reply_to_message_id=update.message_id
-    )
+    for file_type in ("document", "video", "audio"):
+        media = getattr(reply, file_type, None)
+        if media is not None:
+            break
+    else:
+        await msg.edit('This is not supported file format')
+        return
 
-
-@Client.on_message(filters.command(["help"]) & filters.private, group=1)
-async def help(bot, update):
-    buttons = [[
-        InlineKeyboardButton('Home ⚡', callback_data='start'),
-        InlineKeyboardButton('About 🚩', callback_data='about')
-    ],[
-        InlineKeyboardButton('Close 🔐', callback_data='close')
-    ]]
-    
-    reply_markup = InlineKeyboardMarkup(buttons)
-    
-    await bot.send_message(
-        chat_id=update.chat.id,
-        text=Translation.HELP_TEXT,
-        reply_markup=reply_markup,
-        parse_mode="html",
-        reply_to_message_id=update.message_id
-    )
-
-
-@Client.on_message(filters.command(["about"]) & filters.private, group=1)
-async def about(bot, update):
-    
-    buttons = [[
-        InlineKeyboardButton('Home ⚡', callback_data='start'),
-        InlineKeyboardButton('Close 🔐', callback_data='close')
-    ]]
-    reply_markup = InlineKeyboardMarkup(buttons)
-    
-    await bot.send_message(
-        chat_id=update.chat.id,
-        text=Translation.ABOUT_TEXT,
-        reply_markup=reply_markup,
-        disable_web_page_preview=True,
-        parse_mode="html",
-        reply_to_message_id=update.message_id
-    )
+    result = await Media.collection.delete_one({
+        'file_name': media.file_name,
+        'file_size': media.file_size,
+        'mime_type': media.mime_type,
+        'caption': reply.caption.html if reply.caption else None
+    })
+    if result.deleted_count:
+        await msg.edit('File is successfully deleted from database')
+    else:
+        await msg.edit('File not found in database')
