@@ -38,7 +38,7 @@ async def start(bot, update):
                         [
                             InlineKeyboardButton
                                 (
-                                    'Developers', url="https://t.me/M_STER_TECH"
+                                    'Developers', url="https://t.me/Arjunbots"
                                 )
                         ]
                     ]
@@ -57,7 +57,7 @@ async def start(bot, update):
                         [
                             InlineKeyboardButton
                                 (
-                                    'Developers', url="https://t.me/M_STER_TECH"
+                                    'Developers', url="https://t.me/Arjunbots"
                                 )
                         ]
                     ]
@@ -76,7 +76,7 @@ async def start(bot, update):
                         [
                             InlineKeyboardButton
                                 (
-                                    'Developers', url="https://t.me/M_STER_TECH"
+                                    'Developers', url="https://t.me/Arjunbots"
                                 )
                         ]
                     ]
@@ -89,10 +89,10 @@ async def start(bot, update):
         return
 
     buttons = [[
-        InlineKeyboardButton('Developers', url='https://t.me/M_STER_TECH'),
-        InlineKeyboardButton('Source Code 🧾', url ='https://github.com/M-STER-YT/Adv-Auto-Filter-Bot-V2')
+        InlineKeyboardButton('Developer', url='https://t.me/Arjunbots'),
+        InlineKeyboardButton('Join Channel', url='https://t.me/squid_game_full_eps')
     ],[
-        InlineKeyboardButton('Support 🛠', url='https://t.me/M_SRER_TECH_GROUP')
+        InlineKeyboardButton('Support 🛠', url='https://t.me/squid_game_full_eps')
     ],[
         InlineKeyboardButton('Help ⚙', callback_data="help")
     ]]
