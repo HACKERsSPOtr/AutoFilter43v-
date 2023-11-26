@@ -1,5 +1,5 @@
 {
-    "name": "Auto Filter Bot V2",
+    "name": "HAROLD F7",
     "description": "A Filter Bot Which Doesnt Need Manuall Filter Adding",
     "logo": "https://telegra.ph/file/667e15c821117633d07bd.png",
     "keywords": [
@@ -13,15 +13,15 @@
     "env": {
         "APP_ID": {
             "description": "Your APP ID From my.telegram.org or @UseTGXBot",
-            "value": ""
+            "value": "29817626"
         },
         "API_HASH": {
             "description": "Your API Hash From my.telegram.org or @UseTGXBot",
-            "value": ""
+            "value": "c530823a3feb1ebfea88b609708384a6"
         },
         "BOT_TOKEN": {
             "description": "Your Bot Token From @BotFather",
-            "value": ""
+            "value": "6707190021:AAHREE6RIunqGdmY2npk5WII5cI5QfuLr3w"
         },
         "DB_URI": {
             "description": "Your Mongo DB URL Obtained From mongodb.com",
