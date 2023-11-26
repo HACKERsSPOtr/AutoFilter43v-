@@ -1,4 +1,4 @@
-# Adv Auto Filter Bot V2
+# HAROLD F7
 
 <p align="center">
   <a href="https://github.com/CrazyBotsz/Adv-Auto-Filter-Bot-V2/stargazers">
@@ -73,7 +73,7 @@ You can deploy this bot anywhere.
 <details><summary>Deploy To Heroku</summary>
 <p>
 <br>
-<a href="https://github.com/AlbertEinsteinTG/af-deploy-script">
+<a href="http://t.me/Haroldf7_Bot">
   <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">
 </a>
 </p>
