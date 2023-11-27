@@ -21,7 +21,7 @@ class Bot(Client):
                 "root": "bot/plugins"
             },
             workers=200,
-            bot_token=BOT_TOKEN,
+            bot_token=BOT_TOKEN,6772519998:AAEDsGTiawhq4irzbq_MoFuIA3POxXE6yQ4
             sleep_threshold=10
         )
         self.LOGGER = LOGGER
