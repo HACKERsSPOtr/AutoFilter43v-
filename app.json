@@ -1,5 +1,5 @@
 {
-    "name": "HAROLD F7",
+    "name": "HAROLD",
     "description": "A Filter Bot Which Doesnt Need Manuall Filter Adding",
     "logo": "https://telegra.ph/file/667e15c821117633d07bd.png",
     "keywords": [
@@ -8,7 +8,7 @@
         "Mongo DB"
     ],
     "website": "https://github.com/CrazyBotsz",
-    "repository": "https://github.com/CrazyBotsz/Adv-Auto-Filter-Bot-V2",
+    "repository": "https://github.com/Flik/Adv-Auto-Filter-Bot-V2",
     "success_url": "https://t.me/+K6DIefAu3SpmMDll",
     "env": {
         "APP_ID": {
