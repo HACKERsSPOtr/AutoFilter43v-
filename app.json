@@ -9,7 +9,7 @@
     ],
     "website": "https://github.com/CrazyBotsz",
     "repository": "https://github.com/CrazyBotsz/Adv-Auto-Filter-Bot-V2",
-    "success_url": "https://telegram.dog/CrazyBotsz",
+    "success_url": "https://t.me/+K6DIefAu3SpmMDll",
     "env": {
         "APP_ID": {
             "description": "Your APP ID From my.telegram.org or @UseTGXBot",
@@ -21,7 +21,7 @@
         },
         "BOT_TOKEN": {
             "description": "Your Bot Token From @BotFather",
-            "value": "6707190021:AAHREE6RIunqGdmY2npk5WII5cI5QfuLr3w"
+            "value": "6772519998:AAEDsGTiawhq4irzbq_MoFuIA3POxXE6yQ4"
         },
         "DB_URI": {
             "description": "Your Mongo DB URL Obtained From mongodb.com",
