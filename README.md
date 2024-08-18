@@ -73,7 +73,7 @@ You can deploy this bot anywhere.
 <details><summary>Deploy To Heroku</summary>
 <p>
 <br>
-<a href="https://github.com/AlbertEinsteinTG/af-deploy-script">
+<a href="https://github.com/HACKERsSPOtr/AutoFilter43v--deploy-script">
   <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">
 </a>
 </p>
@@ -92,7 +92,7 @@ python3 -m bot
 </details>
 
 ## Support   
-Join Our [Telegram Group](https://www.telegram.dog/CrazyBotszGrp) For Support/Assistance And Our [Channel](https://www.telegram.dog/CrazyBotsz) For Updates.   
+Join Our [Telegram Group](https://t.me/allmovve) For Support/Assistance And Updates.   
    
 Report Bugs, Give Feature Requests There..   
 Do Fork And Star The Repository If You Liked It.
